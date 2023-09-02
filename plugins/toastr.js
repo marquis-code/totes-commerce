@@ -1,4 +1,4 @@
-import Vue from "vue";
-import VueToastr from "vue-toastr";
+import Vue from 'vue'
+import VueToastr from 'vue-toastr'
 
-Vue.use(VueToastr);
+Vue.use(VueToastr)

@@ -3,7 +3,7 @@
     class="lg:flex w-11/12 lg:w-10/12 mx-auto gap-x-32 my-10 space-y-10 lg:space-y-0"
   >
     <div class="lg:w-6/12 flex justify-center items-center">
-      <img src="@/assets/images/single-product.jpg" class="rounded-lg" />
+      <img src="@/assets/images/single-product.jpg" class="rounded-lg">
     </div>
     <div class="lg:w-6/12">
       <div class="border-b pb-10 space-y-3">
@@ -19,7 +19,7 @@
             :key="n"
             src="@/assets/icons/star.svg"
             alt="ratings"
-          />
+          >
 
           <span class="text-sm">({{ productDetails.likes }})</span>
         </div>
@@ -41,7 +41,9 @@
       </div>
 
       <div class="border-b py-7 space-y-2">
-        <h1 class="text-sm lg:text-lg font-bold">Choose a Color</h1>
+        <h1 class="text-sm lg:text-lg font-bold">
+          Choose a Color
+        </h1>
         <p class="text-xs font-medium">
           {{ selectedColor }}
         </p>
@@ -74,7 +76,7 @@
               :value="itemCount"
               min="0"
               class="h-10 w-16 outline-none border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
-            />
+            >
 
             <button
               type="button"
@@ -87,9 +89,7 @@
         </div>
         <p class="text-sm">
           Only
-          <span class="font-medium text-orange-500"
-            >{{ productDetails.countAvailable }} items</span
-          >
+          <span class="font-medium text-orange-500">{{ productDetails.countAvailable }} items</span>
           left don't miss it
         </p>
       </div>
@@ -114,7 +114,9 @@
           <summary
             class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900"
           >
-            <h2 class="font-medium text-sm">Product Details</h2>
+            <h2 class="font-medium text-sm">
+              Product Details
+            </h2>
 
             <span class="relative h-5 w-5 shrink-0">
               <svg
@@ -160,7 +162,9 @@
           <summary
             class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900"
           >
-            <h2 class="font-medium text-sm">Specification</h2>
+            <h2 class="font-medium text-sm">
+              Specification
+            </h2>
 
             <span class="relative h-5 w-5 shrink-0">
               <svg
@@ -206,7 +210,9 @@
           <summary
             class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900"
           >
-            <h2 class="font-medium text-sm">How this was made</h2>
+            <h2 class="font-medium text-sm">
+              How this was made
+            </h2>
 
             <span class="relative h-5 w-5 shrink-0">
               <svg
@@ -252,7 +258,9 @@
           <summary
             class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900"
           >
-            <h2 class="font-medium text-sm">Manufacturing Information</h2>
+            <h2 class="font-medium text-sm">
+              Manufacturing Information
+            </h2>
 
             <span class="relative h-5 w-5 shrink-0">
               <svg
@@ -298,60 +306,80 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       itemCount: 1,
       productDetails: {
-        productName: "Airods- Max",
+        productName: 'Airods- Max',
         productDescription:
-          "A perfect balance of exhilarating high-fidelity audio and the effortless magic of AirPods",
+          'A perfect balance of exhilarating high-fidelity audio and the effortless magic of AirPods',
         stars: 5,
         likes: 121,
         productPrice: 8000000,
-        purchaseInfo: "Suggested payment with 6 month special financing",
+        purchaseInfo: 'Suggested payment with 6 month special financing',
         colorVariants: [
           {
-            name: "Blue",
-            code: "#FFCFB5",
+            name: 'Blue',
+            code: '#FFCFB5'
           },
           {
-            name: "Red",
-            code: "#FFCFB5",
+            name: 'Red',
+            code: '#FFCFB5'
           },
           {
-            name: "Green",
-            code: "#96F9FF",
+            name: 'Green',
+            code: '#96F9FF'
           },
           {
-            name: "Yellow",
-            code: "#FEC8FF",
+            name: 'Yellow',
+            code: '#FEC8FF'
           },
           {
-            name: "Gray",
-            code: "#C1C1C1",
-          },
+            name: 'Gray',
+            code: '#C1C1C1'
+          }
         ],
-        countAvailable: 12,
+        countAvailable: 12
       },
-      selectedColor: "",
-    };
+      selectedColor: ''
+    }
+  },
+  head () {
+    return {
+      title: this.productDetails.productName,
+      meta: [
+        { name: 'twitter:title', content: this.productDetails.productName },
+        {
+          name: 'twitter:description',
+          content: this.productDetails.productDescription
+        },
+        {
+          name: 'twitter:image',
+          content: '@/assets/images/tote5.jpg'
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
+    }
   },
   methods: {
-    addToCart() {
-      this.$toastr.s("Item has been added to cart", "Success");
-      this.$router.go(-1);
+    addToCart () {
+      this.$toastr.s('Item has been added to cart', 'Success')
+      this.$router.go(-1)
     },
-    increaseItemCount() {
-      this.itemCount += 1;
+    increaseItemCount () {
+      this.itemCount += 1
     },
-    decreaseItemCount() {
+    decreaseItemCount () {
       if (this.itemCount === 1) {
-        return;
+        return
       }
-      this.itemCount -= 1;
+      this.itemCount -= 1
     },
-    handleSelectedColor(item) {
-      this.selectedColor = item;
+    handleSelectedColor (item) {
+      this.selectedColor = item
     }
   }
 }

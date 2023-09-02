@@ -25,7 +25,10 @@
             ) in products"
             :key="index"
           >
-            <nuxt-link :to="`/products/${id}`" class="group block overflow-hidden">
+            <nuxt-link
+              :to="`/products/${id}`"
+              class="group block overflow-hidden"
+            >
               <img
                 :src="productImage"
                 alt=""
@@ -134,39 +137,30 @@
 
 <script>
 export default {
-  data() {
+  head() {
     return {
-      products: [
+      title: "All products Page",
+      meta: [
+        { name: "twitter:title", content: "ToteCommerce Product page" },
         {
-          id: 1,
-          productImage:
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-          productName: "Basic Tee",
-          productPrice: "£24.00 GBP",
+          name: "twitter:description",
+          content: "Get amazing totes bag for affordable prices",
         },
         {
-          id: 2,
-          productImage:
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-          productName: "Basic Tee",
-          productPrice: "£24.00 GBP",
+          name: "twitter:image",
+          content: "@/assets/images/tote5.jpg",
         },
         {
-          id: 3,
-          productImage:
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-          productName: "Basic Tee",
-          productPrice: "£24.00 GBP",
-        },
-        {
-          id: 4,
-          productImage:
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-          productName: "Basic Tee",
-          productPrice: "£24.00 GBP",
+          name: "twitter:card",
+          content: "summary_large_image",
         },
       ],
     };
+  },
+  computed: {
+    products() {
+      return this.$store.state.products.all;
+    },
   },
   methods: {
     onPageChange(page) {

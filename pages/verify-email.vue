@@ -40,6 +40,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: "Email verification Page",
+    };
+  },
   layout: "authLayout",
 };
 </script>

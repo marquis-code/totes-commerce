@@ -44,7 +44,11 @@
           <nuxt-link to="/signup" class="text-[#002482] font-[700] text-[14px]">
             Don't have an account ?
           </nuxt-link>
-          <nuxt-link to="/forgot-password" class="text-[#002482] font-[700] text-[14px]">Forgot Password?</nuxt-link>
+          <nuxt-link
+            to="/forgot-password"
+            class="text-[#002482] font-[700] text-[14px]"
+            >Forgot Password?</nuxt-link
+          >
         </div>
         <div class="w-full">
           <button class="bg-[#002482] text-white py-3 rounded-lg w-full">
@@ -58,6 +62,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: "Login Page",
+    };
+  },
   layout: "authLayout",
 };
 </script>

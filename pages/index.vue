@@ -2,7 +2,7 @@
   <main>
     <main>
       <HeroSection />
-    <section class="bg-gray-200 card">
+      <section class="bg-gray-200 card">
         <div class="px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <header class="text-center">
             <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
@@ -90,7 +90,7 @@
             </li>
           </ul>
         </div>
-      </section> 
+      </section>
     </main>
   </main>
 </template>
@@ -99,6 +99,11 @@
 import HeroSection from "@/components/HeroSection";
 export default {
   scrollToTop: true,
+  head() {
+    return {
+      title: "Home Page",
+    };
+  },
   components: {
     HeroSection,
   },
