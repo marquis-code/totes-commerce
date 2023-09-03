@@ -1,5 +1,5 @@
 <template>
-  <main class="hero relative bg-black">
+  <main class="relative bg-black bg-[url('@/assets/images/p.jpg')] h-screen object-cover">
     <div
       class="mx-auto flex items-center h-full w-11/12 lg:w-10/12"
     >
@@ -21,14 +21,15 @@
     </div>
   </main>
 </template>
-
+<!-- 
 <style>
 .hero {
-  background-image: url("../assets/images/hero_large.jpg");
+  background-image: url("");
   width: 100vw;
-  height: 600px;
+  height: 480px;
   background-size: 100% 100%;
   background-size: contain;
   background-clip: border-box;
+  background-repeat: no-repeat;
 }
-</style>
+</style> -->

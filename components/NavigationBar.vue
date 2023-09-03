@@ -137,14 +137,7 @@
           </div>
         </div>
         <div v-else>
-          <!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
-
-          <section>
+          <section class="h-[300px]">
             <div
               class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
             >
@@ -158,21 +151,19 @@
                 <div class="mt-8">
                   <ul class="space-y-4">
                     <li
-                      v-for="(
-                        { itemName, price, color, size, count, imgUrl }, index
-                      ) in cartItems"
+                      v-for="(item, index) in cartItems"
                       :key="index"
                       class="flex items-center gap-4"
                     >
                       <img
-                        :src="imgUrl"
+                        :src="item.imgUrl"
                         alt=""
                         class="h-16 w-16 rounded object-cover"
                       >
 
                       <div>
                         <h3 class="text-sm text-gray-900">
-                          {{ itemName }}
+                          {{ item.name }}
                         </h3>
 
                         <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
@@ -181,7 +172,7 @@
                               Size:
                             </dt>
                             <dd class="inline">
-                              {{ size }}
+                              {{ item.size }}
                             </dd>
                           </div>
 
@@ -190,7 +181,7 @@
                               Color:
                             </dt>
                             <dd class="inline">
-                              {{ color }}
+                              {{ item.color }}
                             </dd>
                           </div>
 
@@ -200,7 +191,7 @@
                             </dt>
                             <dd class="inline">
                               {{
-                                price.toLocaleString("en-NG", {
+                                item.price.toLocaleString("en-NG", {
                                   style: "currency",
                                   currency: "NGN",
                                   minimumFractionDigits: 0,
@@ -221,14 +212,14 @@
                             id="Line1Qty"
                             type="number"
                             min="1"
-                            :value="count"
+                            :value="item.count"
                             class="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                           >
                         </form>
 
                         <button
                           class="text-gray-600 transition hover:text-red-600"
-                          @click="deleteItem(index)"
+                          @click="deleteItem(item)"
                         >
                           <span class="sr-only">Remove item</span>
 
@@ -335,56 +326,22 @@ export default {
   scrollToTop: true,
   data () {
     return {
-      showCart: false,
-      cartItems: [
-        {
-          itemName: 'Basic Tee 6-Pack',
-          price: 500,
-          color: ' White',
-          size: 'XXS',
-          count: '1',
-          imgUrl:
-            'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80'
-        },
-        {
-          itemName: 'Basic Tee 6-Pack',
-          price: 500,
-          color: ' White',
-          size: 'XXS',
-          count: '1',
-          imgUrl:
-            'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80'
-        },
-        {
-          itemName: 'Basic Tee 6-Pack',
-          price: 500,
-          color: ' White',
-          size: 'XXS',
-          count: '1',
-          imgUrl:
-            'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80'
-        },
-        {
-          itemName: 'Basic Tee 6-Pack',
-          price: 500,
-          color: ' White',
-          size: 'XXS',
-          count: '1',
-          imgUrl:
-            'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80'
-        }
-      ]
+      showCart: false
     }
   },
   computed: {
     totalPrice () {
       return this.cartItems
-        .reduce((acc, item) => acc + item.price, 0)
+        .reduce((acc, item) => acc + (item?.price * item?.count), 0)
         .toLocaleString('en-NG', {
           style: 'currency',
           currency: 'NGN',
           minimumFractionDigits: 0
         })
+    },
+    cartItems () {
+      console.log(this.$store?.state?.cart?.cartItems.length, 'ddd')
+      return this.$store?.state?.cart?.cartItems
     }
   },
   methods: {
@@ -392,11 +349,13 @@ export default {
       this.$emit('toggleCart', this.showCart)
       this.showCart = !this.showCart
     },
-    deleteItem (itemIndex) {
-      const result = this.cartItems.filter((item, index) => {
-        return (index !== itemIndex)
-      })
-      this.cartItems = result
+    deleteItem (item) {
+      console.log(item, 'delete item here')
+      this.$store.dispatch('cart/DeleteItemFromCart', { item })
+      // const result = this.cartItems.filter((item, index) => {
+      //   return index !== itemIndex
+      // })
+      // this.cartItems = result
     }
   }
 }

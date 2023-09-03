@@ -15,7 +15,9 @@
         </header>
 
         <div class="mt-8">
-          <p class="text-sm text-gray-500">Showing <span> 4 </span> of 40</p>
+          <p class="text-sm text-gray-500">
+            Showing <span> 4 </span> of 40
+          </p>
         </div>
 
         <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -33,7 +35,7 @@
                 :src="productImage"
                 alt=""
                 class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-              />
+              >
 
               <div class="relative bg-white pt-3">
                 <h3
@@ -46,8 +48,7 @@
                   <span class="sr-only"> Regular Price </span>
 
                   <span class="tracking-wider text-gray-900">
-                    {{ productPrice }}</span
-                  >
+                    {{ productPrice }}</span>
                 </p>
               </div>
             </nuxt-link>
@@ -137,36 +138,36 @@
 
 <script>
 export default {
-  head() {
+  head () {
     return {
-      title: "All products Page",
+      title: 'All products Page',
       meta: [
-        { name: "twitter:title", content: "ToteCommerce Product page" },
+        { name: 'twitter:title', content: 'ToteCommerce Product page' },
         {
-          name: "twitter:description",
-          content: "Get amazing totes bag for affordable prices",
+          name: 'twitter:description',
+          content: 'Get amazing totes bag for affordable prices'
         },
         {
-          name: "twitter:image",
-          content: "@/assets/images/tote5.jpg",
+          name: 'twitter:image',
+          content: '@/assets/images/tote5.jpg'
         },
         {
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-      ],
-    };
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
+    }
   },
   computed: {
-    products() {
-      return this.$store.state.products.all;
-    },
+    products () {
+      return this.$store?.state?.cart?.items
+    }
   },
   methods: {
-    onPageChange(page) {
-      console.log(page);
-      this.currentPage = page;
-    },
-  },
-};
+    onPageChange (page) {
+      console.log(page)
+      this.currentPage = page
+    }
+  }
+}
 </script>

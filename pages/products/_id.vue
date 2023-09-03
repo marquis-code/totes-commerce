@@ -52,7 +52,7 @@
             v-for="{ name, code } in productDetails.colorVariants"
             :key="name"
             class="h-6 cursor-pointer hover:border hover:border-green-500 lg:h-10 w-6 lg:w-10 block rounded-full shadow-md"
-            :class="`bg-[${code}]`"
+            :style="{ backgroundColor: code }"
             @click="handleSelectedColor(name)"
           />
         </div>
@@ -96,6 +96,7 @@
       <div class="space-x-3 lg:space-x-6">
         <button
           class="bg-green-800 text-white px-10 py-2.5 text-xs lg:text-sm rounded-full"
+          @click="initializePaystack"
         >
           Buy Now
         </button>
@@ -341,7 +342,8 @@ export default {
         ],
         countAvailable: 12
       },
-      selectedColor: ''
+      selectedColor: '',
+      cartItem: {}
     }
   },
   head () {
@@ -364,10 +366,28 @@ export default {
       ]
     }
   },
+  computed: {
+    cartItems () {
+      return this.$store?.state?.cart?.cartItems || []
+    }
+  },
   methods: {
     addToCart () {
-      this.$toastr.s('Item has been added to cart', 'Success')
-      this.$router.go(-1)
+      const payload = {
+        id: Math.floor(Math.random() * 1000),
+        name: this.productDetails.productName,
+        size: this.productDetails?.productSize ?? 'XXS',
+        color: this.selectedColor ?? 'Black',
+        price: this.productDetails.productPrice,
+        imgUrl:
+          'https://images.unsplash.com/photo-1693155105159-440dfc14831c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80',
+        count: this.itemCount
+      }
+      this.$store.dispatch('cart/AddItemToCart', { payload })
+      this.$toastr.s(
+        'You have successfully addes a new item to your cart.',
+        'Cart updated'
+      )
     },
     increaseItemCount () {
       this.itemCount += 1
@@ -380,6 +400,25 @@ export default {
     },
     handleSelectedColor (item) {
       this.selectedColor = item
+    },
+    // use the code below in the methods object section to initialize payment
+    initializePaystack () {
+      // access the paystack key from env file
+      // const paystack_key = process.env.PAYSTACK_KEY
+      this.$paystack({
+        key: 'pk_live_407a008b8d69340ee3c305ea012631380b153f19', // Replace with your public key.
+        email: 'abahmarquis@mail.com',
+        // amount value is expected in kobo (charge * 100)
+        amount: 1000 * 100,
+        ref: '' + Math.floor(Math.random() * 100000000000000 + 1),
+        currency: 'NGN',
+        callback: (res) => {
+          console.log(res)
+        },
+        onClose: () => {
+          alert('window cosed')
+        }
+      })
     }
   }
 }

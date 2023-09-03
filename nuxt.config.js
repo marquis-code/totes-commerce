@@ -16,8 +16,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    // '~/plugins/toastr.js'
-],
+    { src: '~/plugins/toastr.js', mode: 'client' },
+    { src: '~/plugins/localstorage.client.js', mode: 'client' }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -27,12 +28,27 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'nuxt-leaflet',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
-    '@nuxt/content'
+    '@nuxt/content',
+    // 'nuxt-social-meta',
+    'nuxt-paystack'
+    // {
+    //   url: 'Site url',
+    //   title: 'TotesCommerce',
+    //   site_name: 'TotesCommerce',
+    //   description:
+    //     'We know how large objects will act, but things on a small scale',
+    //   img: './static',
+    //   locale: 'en_US',
+    //   twitter: '@user',
+    //   twitter_card: 'summary_large_image',
+    //   themeColor: '#8B4E96'
+    // }
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -52,7 +68,7 @@ export default {
       name: 'TotesCommerce',
       short_name: 'TotesCommerce',
       description:
-        ' We know how large objects will act, but things on a small scale.',
+        'We know how large objects will act, but things on a small scale.',
       lang: 'en',
       theme_color: '#8B4E96',
       background_color: '#8B4E96',
