@@ -92,7 +92,7 @@
         </div>
       </section>
      <section class="bg-green-800">
-            <section class="">
+            <!-- <section class="">
         <div class="relative flex overflow-x-hidden">
           <div class="py-12 animate-marquee whitespace-nowrap">
             <span class="text-4xl mx-4"><img class="h-32 inline" src="@/assets/images/mobile.png" alt="" ></span></span>
@@ -110,7 +110,7 @@
             <span class="text-4xl mx-4"><img class="h-32 inline" src="@/assets/images/mobile.png" alt="" ></span>
           </div>
         </div>
-      </section>
+      </section> -->
       
       <section class="">
         <div class="relative flex overflow-x-hidden">

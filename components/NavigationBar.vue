@@ -17,7 +17,7 @@
                   class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56 border outline-none"
                   type="search"
                   placeholder="Search website..."
-                >
+                />
 
                 <button
                   type="button"
@@ -78,9 +78,11 @@
                   src="@/assets/icons/green_user.svg"
                   alt=""
                   class="inline"
-                ><span>Login</span>
+                /><span>Login</span>
               </nuxt-link>
-              <span class="text-[#23A6F0] font-[700] text-[15px] leading-[24px]">/</span>
+              <span class="text-[#23A6F0] font-[700] text-[15px] leading-[24px]"
+                >/</span
+              >
               <nuxt-link
                 to="/signup"
                 class="text-[#23A6F0] font-[700] text-[15px] leading-[24px]"
@@ -112,14 +114,12 @@
         <div class="flex justify-between items-center border-b py-4 px-4">
           <p>Cart</p>
           <div class="flex items-center gap-x-3">
-            <p class="font-medium text-green-500">
-              Saved Items
-            </p>
+            <p class="font-medium text-green-500">Saved Items</p>
             <img
               src="@/assets/icons/close.svg"
               class="rounded-full bg-white shadow-md p-2 cursor-pointer"
               @click="showCart = false"
-            >
+            />
           </div>
         </div>
         <div
@@ -127,13 +127,9 @@
           class="h-full flex justify-center items-center"
         >
           <div class="flex justify-center items-center flex-col gap-y-3">
-            <img class="" src="@/assets/icons/empty-cart.svg">
-            <h1 class="font-medium text-lg">
-              Your Cart is Empty
-            </h1>
-            <p class="text-gray-600">
-              Add items to get started
-            </p>
+            <img class="" src="@/assets/icons/empty-cart.svg" />
+            <h1 class="font-medium text-lg">Your Cart is Empty</h1>
+            <p class="text-gray-600">Add items to get started</p>
           </div>
         </div>
         <div v-else>
@@ -159,7 +155,7 @@
                         :src="item.imgUrl"
                         alt=""
                         class="h-16 w-16 rounded object-cover"
-                      >
+                      />
 
                       <div>
                         <h3 class="text-sm text-gray-900">
@@ -168,27 +164,21 @@
 
                         <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
                           <div>
-                            <dt class="inline">
-                              Size:
-                            </dt>
+                            <dt class="inline">Size:</dt>
                             <dd class="inline">
                               {{ item.size }}
                             </dd>
                           </div>
 
                           <div>
-                            <dt class="inline">
-                              Color:
-                            </dt>
+                            <dt class="inline">Color:</dt>
                             <dd class="inline">
                               {{ item.color }}
                             </dd>
                           </div>
 
                           <div>
-                            <dt class="inline">
-                              Price:
-                            </dt>
+                            <dt class="inline">Price:</dt>
                             <dd class="inline">
                               {{
                                 item.price.toLocaleString("en-NG", {
@@ -214,7 +204,7 @@
                             min="1"
                             :value="item.count"
                             class="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                          >
+                          />
                         </form>
 
                         <button
@@ -249,17 +239,19 @@
                       <dl class="space-y-0.5 text-sm text-gray-700">
                         <div class="flex justify-between">
                           <dt>Subtotal</dt>
-                          <dd>£250</dd>
+                          <dd>
+                            {{ totalPrice }}
+                          </dd>
                         </div>
 
                         <div class="flex justify-between">
                           <dt>VAT</dt>
-                          <dd>£25</dd>
+                          <dd>₦ 0.00</dd>
                         </div>
 
                         <div class="flex justify-between">
                           <dt>Discount</dt>
-                          <dd>-£20</dd>
+                          <dd>-₦ 0.00</dd>
                         </div>
 
                         <div
@@ -292,18 +284,18 @@
                           </svg>
 
                           <p class="whitespace-nowrap text-xs">
-                            2 Discounts Applied
+                            0 Discounts Applied
                           </p>
                         </span>
                       </div>
 
                       <div class="flex justify-end">
-                        <a
-                          href="#"
+                        <button
                           class="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                          @click="initializePaystack"
                         >
                           Checkout
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -318,45 +310,72 @@
 </template>
 
 <script>
-import VueScrollStop from 'vue-scroll-stop'
+import VueScrollStop from "vue-scroll-stop";
 export default {
   components: {
-    VueScrollStop
+    VueScrollStop,
   },
   scrollToTop: true,
-  data () {
+  data() {
     return {
-      showCart: false
-    }
+      showCart: false,
+    };
   },
   computed: {
-    totalPrice () {
+    totalPrice() {
       return this.cartItems
-        .reduce((acc, item) => acc + (item?.price * item?.count), 0)
-        .toLocaleString('en-NG', {
-          style: 'currency',
-          currency: 'NGN',
-          minimumFractionDigits: 0
-        })
+        .reduce((acc, item) => acc + item?.price * item?.count, 0)
+        .toLocaleString("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          minimumFractionDigits: 0,
+        });
     },
-    cartItems () {
-      console.log(this.$store?.state?.cart?.cartItems.length, 'ddd')
-      return this.$store?.state?.cart?.cartItems
-    }
+    totalPriceWithoutNairaSign() {
+      return this.cartItems.reduce(
+        (acc, item) => acc + item?.price * item?.count,
+        0
+      );
+    },
+    cartItems() {
+      console.log(this.$store?.state?.cart?.cartItems.length, "ddd");
+      return this.$store?.state?.cart?.cartItems;
+    },
   },
   methods: {
-    toggleCart () {
-      this.$emit('toggleCart', this.showCart)
-      this.showCart = !this.showCart
+    toggleCart() {
+      this.$emit("toggleCart", this.showCart);
+      this.showCart = !this.showCart;
     },
-    deleteItem (item) {
-      console.log(item, 'delete item here')
-      this.$store.dispatch('cart/DeleteItemFromCart', { item })
+    deleteItem(item) {
+      console.log(item, "delete item here");
+      this.$store.dispatch("cart/DeleteItemFromCart", { item });
       // const result = this.cartItems.filter((item, index) => {
       //   return index !== itemIndex
       // })
       // this.cartItems = result
-    }
-  }
-}
+    },
+    initializePaystack() {
+      // access the paystack key from env file
+      // const paystack_key = process.env.PAYSTACK_KEY
+      this.$paystack({
+        key: "pk_live_407a008b8d69340ee3c305ea012631380b153f19", // Replace with your public key.
+        email: "abahmarquis@mail.com",
+        // amount value is expected in kobo (charge * 100)
+        amount: this.totalPriceWithoutNairaSign,
+        ref: "" + Math.floor(Math.random() * 100000000000000 + 1),
+        currency: "NGN",
+        callback: (res) => {
+          this.$toastr.s(
+            "You have successfully completed checkout.",
+            "Checkout completed."
+          );
+        },
+        onClose: () => {
+          alert("window cosed");
+        },
+      });
+    },
+  },
+};
 </script>

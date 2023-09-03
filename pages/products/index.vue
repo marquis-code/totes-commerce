@@ -16,7 +16,7 @@
 
         <div class="mt-8">
           <p class="text-sm text-gray-500">
-            Showing <span> 4 </span> of 40
+            Showing <span> 4 </span> of {{ products.length }}
           </p>
         </div>
 

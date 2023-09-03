@@ -94,12 +94,12 @@
         </p>
       </div>
       <div class="space-x-3 lg:space-x-6">
-        <button
+        <!-- <button
           class="bg-green-800 text-white px-10 py-2.5 text-xs lg:text-sm rounded-full"
           @click="initializePaystack"
         >
           Buy Now
-        </button>
+        </button> -->
         <button
           class="border-2 border-green-700 text-green-600 text-xs lg:text-sm px-10 py-2.5 rounded-full"
           @click="addToCart"
@@ -385,7 +385,7 @@ export default {
       }
       this.$store.dispatch('cart/AddItemToCart', { payload })
       this.$toastr.s(
-        'You have successfully addes a new item to your cart.',
+        'You have successfully added a new item to your cart.',
         'Cart updated'
       )
     },
@@ -400,26 +400,26 @@ export default {
     },
     handleSelectedColor (item) {
       this.selectedColor = item
-    },
-    // use the code below in the methods object section to initialize payment
-    initializePaystack () {
-      // access the paystack key from env file
-      // const paystack_key = process.env.PAYSTACK_KEY
-      this.$paystack({
-        key: 'pk_live_407a008b8d69340ee3c305ea012631380b153f19', // Replace with your public key.
-        email: 'abahmarquis@mail.com',
-        // amount value is expected in kobo (charge * 100)
-        amount: 1000 * 100,
-        ref: '' + Math.floor(Math.random() * 100000000000000 + 1),
-        currency: 'NGN',
-        callback: (res) => {
-          console.log(res)
-        },
-        onClose: () => {
-          alert('window cosed')
-        }
-      })
     }
+    // use the code below in the methods object section to initialize payment
+    // initializePaystack () {
+    //   // access the paystack key from env file
+    //   // const paystack_key = process.env.PAYSTACK_KEY
+    //   this.$paystack({
+    //     key: 'pk_live_407a008b8d69340ee3c305ea012631380b153f19', // Replace with your public key.
+    //     email: 'abahmarquis@mail.com',
+    //     // amount value is expected in kobo (charge * 100)
+    //     amount: 1000 * 100,
+    //     ref: '' + Math.floor(Math.random() * 100000000000000 + 1),
+    //     currency: 'NGN',
+    //     callback: (res) => {
+    //       console.log(res)
+    //     },
+    //     onClose: () => {
+    //       alert('window cosed')
+    //     }
+    //   })
+    // }
   }
 }
 </script>
